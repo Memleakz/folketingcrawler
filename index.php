@@ -9,6 +9,11 @@ include_once 'folketing.php';
 ini_set("memory_limit", "-1");
 set_time_limit (0);
 
+if(!is_dir("dump"))
+{
+    mkdir("dump");
+}
+
 $target_folder = "dump/data-".time();
 if(!is_dir($target_folder))
 {
