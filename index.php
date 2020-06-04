@@ -14,7 +14,7 @@ if(!is_dir("dump"))
     mkdir("dump");
 }
 
-$target_folder = "dump/data-".time();
+$target_folder = "dump/data-".date('d-m-Y H:m',time());
 if(!is_dir($target_folder))
 {
     mkdir($target_folder);
@@ -69,6 +69,7 @@ foreach($model as $id)
 if(sizeof($model) == sizeof($done_model))
 {
     //importModelOnComplete();
+    reset_done_models();
 }
 
 //helper functions.
@@ -93,6 +94,12 @@ function updateDoneModels($id)
     fclose($fp);
 
     return true;
+}
+function reset_done_models()
+{
+    $fp = fopen('done_model.json', 'w+');
+    fwrite($fp, json_encode(array()));
+    fclose($fp);
 }
 function importModelOnComplete()
 {
