@@ -56,7 +56,7 @@ class folketing_client
                     $data = json_decode($tmp);
                 }
                 echo "Page:" . $pagecount . "\n";
-                if (is_object($data)) {
+                if (is_object($data) && is_array($data->value)) {
                     $Result = array_merge($Result, $data->value);
                     $next_url = isset($data->{"odata.nextLink"}) ? $data->{"odata.nextLink"} : null;
                     $pagecount++;
