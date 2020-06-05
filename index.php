@@ -14,7 +14,7 @@ if(!is_dir("dump"))
     mkdir("dump");
 }
 
-$target_folder = "dump/data-".date('d-m-Y H:m',time());
+$target_folder = "dump/data-".date('d-m-Y-H-m',time());
 if(!is_dir($target_folder))
 {
     mkdir($target_folder);
