@@ -1,3 +1,5 @@
 dump/*
 old_dump
 old_dump/*
+done_model.json
+status.json
