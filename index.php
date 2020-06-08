@@ -57,6 +57,11 @@ foreach($model as $id)
     $model_data[$id] = $client->GetAll($id, $limit,$date_filter);
     if($model_data[$id] != null)
     {
+        if($id == "Aktør")
+        {
+            //convert biografy xml to json.
+            convertAktørXmlToJson($model_data[$id]);
+        }
         echo "Objects: " . sizeof($model_data[$id]) . "\n";
         $fp = fopen($target_folder."/".$id.'.json', 'w+');
         fwrite($fp, json_encode($model_data[$id]));
@@ -106,4 +111,15 @@ function importModelOnComplete()
 {
     global $target_db;
     exec('php import-model.php '.$target_db);
+}
+function convertAktørXmlToJson(&$data)
+{
+    foreach($data as $index => $aktør)
+    {
+        if(isset($aktør->biografi) && !empty($aktør->biografi))
+        {
+            $xml = simplexml_load_string($aktør->biografi);
+            $aktør->biografi = json_encode($xml);
+        }
+    }
 }
