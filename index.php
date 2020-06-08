@@ -118,8 +118,29 @@ function convertAktørXmlToJson(&$data)
     {
         if(isset($aktør->biografi) && !empty($aktør->biografi))
         {
+            $aktør->biografi = preg_replace('/(<\?xml[^?]+?)utf-16/i', '$1utf-8', $aktør->biografi); 
             $xml = simplexml_load_string($aktør->biografi);
-            $aktør->biografi = json_encode($xml);
+            $aktør->biografi = json_decode(json_encode($xml));
+
+            //Fix image urls.
+            //var_dump($aktør->biografi->pictureMiRes);
+            //exit(1);
+            if(isset($aktør->biografi->pictureMiRes) && !is_array($aktør->biografi->pictureMiRes))
+            {
+                $aktør->biografi->pictureMiRes = fixmemberimgurl($aktør->biografi->pictureMiRes);
+            }
+            else
+            {
+                
+            }
+            
         }
     }
+}
+function fixmemberimgurl($url)
+{
+    $url = str_replace('https://master-ft.ft.dk:443/','https://www.ft.dk/',$url);
+    $url = str_replace('https://ft-webstage.ft.dk/','https://www.ft.dk/',$url);
+    $url = str_replace('https://master-eu.ft.dk/','https://www.ft.dk/',$url);
+    return $url;
 }

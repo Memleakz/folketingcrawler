@@ -6,8 +6,8 @@
 */
 $dbName = $argv[1];
 $cwd = getcwd();
-chdir($cwd . "/dump");
-$scanned_directory = array_diff(scandir($cwd . "/dump"), array('..', '.'));
+chdir($cwd . "/dump/data-08-06-2020-10-06");
+$scanned_directory = array_diff(scandir($cwd . "/dump/data-08-06-2020-10-06"), array('..', '.'));
 foreach($scanned_directory as $file)
 {
     $fname = explode('.',$file);
