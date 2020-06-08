@@ -125,13 +125,9 @@ function convertAktørXmlToJson(&$data)
             //Fix image urls.
             //var_dump($aktør->biografi->pictureMiRes);
             //exit(1);
-            if(isset($aktør->biografi->pictureMiRes) && !is_array($aktør->biografi->pictureMiRes))
+            if(isset($aktør->biografi) && !empty($aktør->biografi))
             {
                 $aktør->biografi->pictureMiRes = fixmemberimgurl($aktør->biografi->pictureMiRes);
-            }
-            else
-            {
-                
             }
             
         }
@@ -139,8 +135,15 @@ function convertAktørXmlToJson(&$data)
 }
 function fixmemberimgurl($url)
 {
-    $url = str_replace('https://master-ft.ft.dk:443/','https://www.ft.dk/',$url);
-    $url = str_replace('https://ft-webstage.ft.dk/','https://www.ft.dk/',$url);
-    $url = str_replace('https://master-eu.ft.dk/','https://www.ft.dk/',$url);
+    if(is_string($url))
+    {
+        $url = str_replace('https://master-ft.ft.dk:443/','https://www.ft.dk/',$url);
+        $url = str_replace('https://ft-webstage.ft.dk:443/sitecore/shell/','https://www.ft.dk/',$url);
+        $url = str_replace('https://ft-webstage.ft.dk:443/','https://www.ft.dk/',$url);
+        $url = str_replace('https://master-eu.ft.dk:443/','https://www.ft.dk/',$url);
+        $url = str_replace('https://ft-webmaster.ft.dk:443/sitecore/shell/','https://www.ft.dk/',$url);
+        $url = str_replace('https://ft-webmaster.ft.dk:443/','https://www.ft.dk/',$url);
+       
+    }
     return $url;
 }
