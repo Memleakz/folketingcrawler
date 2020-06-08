@@ -63,6 +63,7 @@ foreach($model as $id)
         fclose($fp);
         unset($model_data);
         updateDoneModels($id);
+        gc_collect_cycles(); //force garbage collection..else script wiiiil grooooooow.
     }
 }
 //are we done downloading the models ?
